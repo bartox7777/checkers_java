@@ -5,8 +5,18 @@ public class Referee {
     private player currentPlayer;
     private Board board;
 
-    public Referee(Board board){
-        this.board=board;
+    private Board copyBoard(final Board board){
+        Board boardCopy = new Board();
+        for (int i=0; i<8; i++){
+            for (int j=0; j<8; j++){
+                boardCopy.getBoard()[i][j] = board.getBoard()[i][j];
+            }
+        }
+        return boardCopy;
+    }
+
+    public Referee(final Board board){
+        this.board=copyBoard(board);
         currentPlayer=player.WHITE;
     }
 
@@ -53,53 +63,42 @@ public class Referee {
     // check if move is valid when user wants to take a pawn
     // move is in format "a3 b4x c5 [...]"; a3 is the pawn to move, b4x is the pawn to take, c5 is the destination
     private boolean isMoveWithTakeValid(String move){
-        char [][] boardCopy = new char[8][8];
-        for (int i=0; i<8; i++){
-            for (int j=0; j<8; j++){
-                boardCopy[i][j] = board.getBoard()[i][j];
-            }
-        }
-
-        // this ifology is bad idea, TODO: refactor
-        Boolean validMove = false;
+        char [][] boardCopy = copyBoard(board).getBoard();
         while (true){
-            if (move.length()>=9){
-                    if (move.charAt(5)=='x'){
-                        int[][] coordinates = convertMoveToCoordinates(move.substring(0,5));
-                        int x1 = coordinates[0][0];
-                        int y1 = coordinates[0][1];
-                        int x2 = coordinates[1][0];
-                        int y2 = coordinates[1][1];
-                        // char[][] board = this.board.getBoard();
-                        if (boardCopy[x1][y1]==getSymbolOfCurrentPlayer() && boardCopy[x2][y2]==getSymbolOfOpponent()){
-                            coordinates = convertMoveToCoordinates(move.substring(4)); // get coordinates of destination; only coordinates [1][0] and [1][1] are used
-                            int x3 = coordinates[1][0];
-                            int y3 = coordinates[1][1];
-                            if (boardCopy[x3][y3]==' '){
-                                if (Math.abs(x1-x3)==2 && Math.abs(y1-y3)==2){ //  TODO: take can be done backwards? One take can be done forward and one backward in "one move".
-                                    validMove = true;
-                                    move = move.substring(7); // remove first part of move, eg. "a3 b4x c5" -> "c5"
-                                    boardCopy[x1][y1]=' '; // remove pawn that was moved
-                                    boardCopy[x2][y2]=' '; // remove pawn that was taken
-                                    boardCopy[x3][y3]=getSymbolOfCurrentPlayer(); // move pawn to destination
-                                    System.out.println(move);
-                                    if (!move.contains("x")){
-                                        if (move.length()!=2){
-                                            validMove = false;
-                                        }
-                                        break;
-                                    }
-                                } else {validMove = false; break;}
-                            } else {validMove = false; break;}
-                        } else {validMove = false; break;}
-                    } else {validMove = false; break;}
-            } else {validMove = false; break;}
+            if (move.length()<9 || move.charAt(5)!='x'){
+                return false;
+            }
+                int[][] coordinates = convertMoveToCoordinates(move);
+                int x1 = coordinates[0][0];
+                int y1 = coordinates[0][1];
+                int x2 = coordinates[1][0];
+                int y2 = coordinates[1][1];
+                coordinates = convertMoveToCoordinates(move.substring(4)); // get coordinates of destination; only coordinates [1][0] and [1][1] are used
+                int x3 = coordinates[1][0];
+                int y3 = coordinates[1][1];
+                if (x1<0 || x1>7 || y1<0 || y1>7 || x2<0 || x2>7 || y2<0 || y2>7 || x3<0 || x3>7 || y3<0 || y3>7){
+                    return false;
+                }
+                // check if pawn to move is of current player, pawn to take is of opponent and destination is empty
+                if (boardCopy[x1][y1]!=getSymbolOfCurrentPlayer() || boardCopy[x2][y2]!=getSymbolOfOpponent() || boardCopy[x3][y3]!=' ' || Math.abs(x1-x3)!=2 || Math.abs(y1-y3)!=2){
+                    return false;
+                }
+                // validMove = true;
+                move = move.substring(7); // remove first part of move, eg. "a3 b4x c5" -> "c5"
+                boardCopy[x1][y1]=' '; // remove pawn that was moved
+                boardCopy[x2][y2]=' '; // remove pawn that was taken
+                boardCopy[x3][y3]=getSymbolOfCurrentPlayer(); // move pawn to destination
+                if (!move.contains("x")){
+                    if (move.length()!=2){
+                        return false;
+                    }
+                    break;
+                }
         }
-        return validMove;
+        return true;
     }
 
     public boolean isMoveValid(String move){
-        // TODO: check if move is inside the board
         if (move.length()!=5){
             if (move.contains("x")){ // user wants to take a pawn(s)
                 return isMoveWithTakeValid(move);
@@ -111,6 +110,9 @@ public class Referee {
         int y1 = coordinates[0][1];
         int x2 = coordinates[1][0];
         int y2 = coordinates[1][1];
+        if (x1<0 || x1>7 || y1<0 || y1>7 || x2<0 || x2>7 || y2<0 || y2>7){
+            return false;
+        }
         char[][] board = this.board.getBoard();
         if (board[x1][y1]==getSymbolOfCurrentPlayer()){
             if (board[x2][y2]==' '){
