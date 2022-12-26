@@ -40,16 +40,16 @@ public class Board {
     // helper methods to draw the board
     private void drawLine(){
         for (int i=0; i<8; i++){
-            System.out.print("****");
+            System.out.print("----");
         }
-        System.out.print("*");
+        System.out.print("-");
     }
     private void drawPlacesInRow(Pawn[] boardsRow, int number){
         for (int i=0; i<8; i++){
             if (i!=7)
-                System.out.print("* "+ boardsRow[i].getSymbol() +" ");
+                System.out.print("| "+ boardsRow[i].getSymbol() +" ");
             else
-                System.out.print("* "+ boardsRow[i].getSymbol() +" * "+ number);
+                System.out.print("| "+ boardsRow[i].getSymbol() +" | "+ number);
         }
     }
 }

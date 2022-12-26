@@ -99,7 +99,6 @@ public class Referee {
 
     // check if move is valid when user wants to take a pawn
     // move is in format "a3 b4x c5 [...]"; a3 is the pawn to move, b4x is the pawn to take, c5 is the destination
-    // TODO: take by queen
     private boolean isMoveWithTakeValid(String move) throws CloneNotSupportedException{
         Pawn [][] boardCopy = copyBoard(board).getBoard();
         while (true){
