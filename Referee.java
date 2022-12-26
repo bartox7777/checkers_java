@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import javax.xml.namespace.QName;
-
 public class Referee {
     public static enum player {WHITE, BLACK};
     private player currentPlayer;
@@ -17,6 +15,30 @@ public class Referee {
             }
         }
         return boardCopy;
+    }
+
+    public Boolean ifSomeoneWon(){
+        int whitePawns = 0;
+        int blackPawns = 0;
+        for (int i=0; i<8; i++){
+            for (int j=0; j<8; j++){
+                if (board.getBoard()[i][j].getSymbol().equals(whitePawnSymbol)){
+                    whitePawns++;
+                }
+                if (board.getBoard()[i][j].getSymbol().equals(blackPawnSymbol)){
+                    blackPawns++;
+                }
+            }
+        }
+        if (whitePawns == 0){
+            System.out.println("("+ blackPawnSymbol +") Black won!");
+            return true;
+        }
+        if (blackPawns == 0){
+            System.out.println("("+ whitePawnSymbol +") White won!");
+            return true;
+        }
+        return false;
     }
 
     public Referee(final Board board) throws CloneNotSupportedException{
@@ -96,10 +118,34 @@ public class Referee {
                     return false;
                 }
                 // check if pawn to move is of current player, pawn to take is of opponent and destination is empty
-                if (!boardCopy[x1][y1].getSymbol().equalsIgnoreCase(getSymbolOfCurrentPlayer()) || !boardCopy[x2][y2].getSymbol().equalsIgnoreCase(getSymbolOfOpponent()) || !boardCopy[x3][y3].getSymbol().equalsIgnoreCase(" ") || Math.abs(x1-x3)!=2 || Math.abs(y1-y3)!=2){
+                if (!boardCopy[x1][y1].getSymbol().equalsIgnoreCase(getSymbolOfCurrentPlayer()) || !boardCopy[x2][y2].getSymbol().equalsIgnoreCase(getSymbolOfOpponent()) || !boardCopy[x3][y3].getSymbol().equals(" ")){
                     return false;
                 }
-                // validMove = true;
+                if (Math.abs(x1-x3)!=2 || Math.abs(y1-y3)!=2){
+
+                    // if queen
+                    if (boardCopy[x1][y1].isQueen()){
+                        // queen can move diagonally as many fields as she wants
+                        if (Math.abs(x1-x2)==Math.abs(y1-y2)){
+                            // there is exacly one opponent's pawn between queen and destination
+                            int opponentPawnsBetweenQueenAndDestination = 0;
+                            for (int x1i=x1+Integer.signum(x3-x1), y1i=y1+Integer.signum(y3-y1); x1i!=x3 && y1i!=y3; x1i+=Integer.signum(x3-x1), y1i+=Integer.signum(y3-y1)){
+                                if (!boardCopy[x1i][y1i].getSymbol().equals(" ")){
+                                    if (boardCopy[x1i][y1i].getSymbol().equalsIgnoreCase(getSymbolOfOpponent())){
+                                        opponentPawnsBetweenQueenAndDestination++;
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            }
+                            if (opponentPawnsBetweenQueenAndDestination!=1){
+                                return false;
+                            }
+                        }
+                    } else{
+                        return false;
+                    }
+                }
                 move = move.substring(7); // remove first part of move, eg. "a3 b4x c5" -> "c5"
                 boardCopy[x3][y3]=boardCopy[x1][y1]; // move pawn to destination
                 boardCopy[x1][y1]=new EmptyPlace(); // remove pawn that was moved

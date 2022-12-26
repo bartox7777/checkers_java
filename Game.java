@@ -16,6 +16,10 @@ public class Game{
                 // clear console
                 System.out.print("\033[H\033[2J");
                 board.draw();
+                if (referee.ifSomeoneWon()){
+                    System.out.println("Game over!");
+                    break;
+                }
                 referee.changePlayer();
             } else {
                 System.out.println("Invalid move!");
