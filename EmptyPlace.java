@@ -1,8 +1,8 @@
 public class EmptyPlace extends Pawn {
     EmptyPlace(){
-        super(' ');
+        super(" ");
     }
-    public int getStartingLine(){
+    public int getPromoteToQueenLine(){
         return -1; // empty places don't start on any line
     }
 }

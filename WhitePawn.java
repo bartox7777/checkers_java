@@ -1,8 +1,8 @@
-public class WhitePawn extends Pawn {
+public class WhitePawn extends Pawn { // heritance
     WhitePawn(){
-        super('O');
+        super("o");
     }
-    public int getStartingLine(){
-        return 7; // white pawns start on line 7 (counting from 0)
+    public int getPromoteToQueenLine(){
+        return 0; // white pawns promote to queen on line 0 (counting from 0)
     }
 }

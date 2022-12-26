@@ -1,21 +1,26 @@
-public abstract class Pawn {
-    private char symbol;
+public abstract class Pawn implements Cloneable{ // abstract class
+    private String symbol;
     private Boolean isQueen;
-    Pawn(char symbol){
-        setSymbol(symbol);
-        setQueen(false);
+    Pawn(String symbol){
+        setSymbol(symbol.toLowerCase());
+        isQueen=false;
     }
-    public abstract int getStartingLine();
-    public char getSymbol(){
+    public abstract int getPromoteToQueenLine();
+    public String getSymbol(){
         return symbol;
     }
-    public void setSymbol(char symbol){
+    public void setSymbol(String symbol){
         this.symbol=symbol;
     }
     public Boolean isQueen(){
         return isQueen;
     }
-    public void setQueen(Boolean isQueen){
-        this.isQueen=isQueen;
+    public void setQueen(){
+        this.isQueen=true;
+        setSymbol(getSymbol().toUpperCase());
+    }
+
+    public Pawn clone() throws CloneNotSupportedException{
+        return (Pawn) super.clone();
     }
 }

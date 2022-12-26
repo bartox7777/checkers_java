@@ -1,8 +1,8 @@
-public abstract class BlackPawn extends Pawn {
+public class BlackPawn extends Pawn {
     BlackPawn(){
-        super('X');
+        super("x");
     }
-    public int getStartingLine(){
-        return 0; // black pawns start on line 0 (counting from 0)
+    public int getPromoteToQueenLine(){
+        return 7; // black pawns promote to queen on line 7 (counting from 0)
     }
 }

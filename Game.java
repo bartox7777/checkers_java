@@ -1,20 +1,20 @@
 public class Game{
-    public static void main(String[] args){
+    public static void main(String[] args) throws CloneNotSupportedException{
         Game game = new Game();
         game.start();
     }
 
-    public void start(){
+    public void start() throws CloneNotSupportedException{
         Board board = new Board();
         Referee referee = new Referee(board);
-        System.out.print("\033[H\033[2J");
+        // System.out.print("\033[H\033[2J");
         board.draw();
         while (true){
             String move = referee.getMove();
             if (referee.isMoveValid(move)){
                 board = referee.makeMove(move);
                 // clear console
-                System.out.print("\033[H\033[2J");
+                // System.out.print("\033[H\033[2J");
                 board.draw();
                 referee.changePlayer();
             } else {

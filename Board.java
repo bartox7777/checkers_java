@@ -1,16 +1,16 @@
 public class Board {
-    // the board
-    // @ - black pawn
-    // O - white pawn
-    private char[][] board = new char[][] {
-        {' ', '@', ' ', '@', ' ', '@', ' ', '@'},
-        {'@', ' ', '@', ' ', '@', ' ', ' ', ' '},
-        {' ', '@', ' ', '@', ' ', '@', ' ', '@'},
-        {' ', ' ', ' ', ' ', 'O', ' ', ' ', ' '},
-        {' ', '@', ' ', '@', ' ', ' ', ' ', ' '},
-        {'O', ' ', ' ', ' ', ' ', ' ', 'O', ' '},
-        {' ', 'O', ' ', 'O', ' ', 'O', ' ', 'O'},
-        {'O', ' ', 'O', ' ', 'O', ' ', 'O', ' '}
+    // the board is a 2D array of Pawns
+    private Pawn[][] board = new Pawn[][]{ // polymorphism
+        // {new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn()},
+        // {new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace()},
+        {new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn()},
+        {new BlackPawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace()},
+        {new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn()},
+        {new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace()},
+        {new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace()},
+        {new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace()},
+        {new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn()},
+        {new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace()}
     };
 
     // method to draw the board
@@ -32,10 +32,10 @@ public class Board {
     }
 
     // getters and setters
-    public char[][] getBoard(){
+    public Pawn[][] getBoard(){
         return board;
     }
-    public void setBoard(char[][] board){
+    public void setBoard(Pawn[][] board){
         this.board = board;
     }
 
@@ -46,12 +46,12 @@ public class Board {
         }
         System.out.print("*");
     }
-    private void drawPlacesInRow(char[] boardsRow, int number){
+    private void drawPlacesInRow(Pawn[] boardsRow, int number){
         for (int i=0; i<8; i++){
             if (i!=7)
-                System.out.print("* "+ boardsRow[i] +" ");
+                System.out.print("* "+ boardsRow[i].getSymbol() +" ");
             else
-                System.out.print("* "+ boardsRow[i] +" * "+ number);
+                System.out.print("* "+ boardsRow[i].getSymbol() +" * "+ number);
         }
     }
 }
