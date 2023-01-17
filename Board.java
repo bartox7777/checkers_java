@@ -1,9 +1,19 @@
 public class Board {
     // the board is a 2D array of Pawns
+    // private Pawn[][] board = new Pawn[][]{ // polymorphism
+    //     {new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn()},
+    //     {new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace()},
+    //     {new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn()},
+    //     {new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace()},
+    //     {new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace()},
+    //     {new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace()},
+    //     {new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn()},
+    //     {new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace()}
+    // };
     private Pawn[][] board = new Pawn[][]{ // polymorphism
-        {new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn()},
-        {new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace()},
-        {new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn()},
+        {new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new BlackPawn()},
+        {new BlackPawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new BlackPawn(), new EmptyPlace()},
+        {new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new BlackPawn(), new EmptyPlace(), new BlackPawn()},
         {new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace()},
         {new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace(), new EmptyPlace()},
         {new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace(), new WhitePawn(), new EmptyPlace()},

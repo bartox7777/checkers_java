@@ -10,8 +10,8 @@ public class Game{
         System.out.print("\033[H\033[2J");
         board.draw();
         while (true){
-            String move = referee.getMove();
-            if (referee.isMoveValid(move)){
+            String move = referee.getMove(); // take move from one of players | referee decides from whom
+            if (referee.isMoveValid(move)){ // check if given move is valid
                 board = referee.makeMove(move);
                 // clear console
                 System.out.print("\033[H\033[2J");

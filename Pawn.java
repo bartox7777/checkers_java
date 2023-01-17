@@ -1,4 +1,4 @@
-public abstract class Pawn implements Cloneable{ // abstract class
+public abstract class Pawn implements Cloneable{ // abstract class which implements interface Cloneable
     private String symbol;
     private Boolean isQueen;
     Pawn(String symbol){

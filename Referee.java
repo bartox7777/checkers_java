@@ -200,7 +200,7 @@ public class Referee {
         return false;
     }
 
-    // make a move on the board
+    // make an unconditinal move on the board
     // return new state of the board
     // move is in format "a3 b4" or "a3 b4x c5 [...]"
     public Board makeMove(String move){
